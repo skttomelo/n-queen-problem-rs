@@ -52,6 +52,10 @@ impl Board{
         comparison.score() >= self.score()
     }
 
+    pub fn get_n(&self) -> u8{
+        self.n
+    }
+
     pub fn to_string(&self) -> String{
         let mut data = String::from("");
         for y in 0..self.n{

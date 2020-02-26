@@ -1,1 +1,1 @@
-/Users/tomato/projects/n_queen_problem/target/debug/n_queen_problem: /Users/tomato/projects/n_queen_problem/src/board.rs /Users/tomato/projects/n_queen_problem/src/main.rs
+F:\Documents\GitHub\n-queen-problem-rs\target\debug\n_queen_problem.exe: F:\Documents\GitHub\n-queen-problem-rs\src\board.rs F:\Documents\GitHub\n-queen-problem-rs\src\main.rs
