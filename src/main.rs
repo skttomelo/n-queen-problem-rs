@@ -2,6 +2,7 @@ mod board;
 
 use rand;
 use rand::Rng;
+use std::time::SystemTime;
 
 fn generate_boards(n: u8, size: usize) -> Vec<board::Board>{
     let mut board_list: Vec<board::Board> = Vec::new();
@@ -83,6 +84,8 @@ fn main() {
         add in timer to track how many nanoseconds pass for hill climb and hill climb rand restart for doing all of the tables
         */ 
 
+        let mut timer = SystemTime::now();
+
         // hill climb
         for table in &tables{
             let hc_table = hill_climb(&table);
@@ -93,11 +96,14 @@ fn main() {
             }
         }
 
+       let mut runtime = timer.elapsed().unwrap();
+
         hc_avg_score = hc_avg_score/(size as f64);
         hc_success_rate = (hc_success_rate/(size as f64)) * 100.0;
 
-        println!("After Hill Climb (Avg Score): {}\nAfter Hill Climb (Success Rate): {}%", hc_avg_score, hc_success_rate);
+        println!("After Hill Climb (Avg Score): {}\nAfter Hill Climb (Success Rate): {}%\nHill Climb Runtime: {:?}\n", hc_avg_score, hc_success_rate, runtime);
 
+        timer = SystemTime::now();
         // hill climb rand restart
         for table in &tables{
             let hcrr_table = hill_climb_rand_restart(&table);
@@ -107,10 +113,11 @@ fn main() {
                 hcrr_success_rate += 1.0;
             }
         }
+        runtime = timer.elapsed().unwrap();
 
         hcrr_avg_score = hcrr_avg_score/(size as f64);
         hcrr_success_rate = (hcrr_success_rate/(size as f64)) * 100.0;
-        println!("After Hill Climb Rand Restart (Avg Score): {}\nAfter Hill Climb Rand Restart (Success Rate): {}%", hcrr_avg_score, hcrr_success_rate);
+        println!("After Hill Climb Rand Restart (Avg Score): {}\nAfter Hill Climb Rand Restart (Success Rate): {}%\nHill Climb Rand Restart Runtime: {:?}\n", hcrr_avg_score, hcrr_success_rate, runtime);
         println!("\n---------------------------------------------------------------------------------\n");
     }
 }
