@@ -87,9 +87,9 @@ fn hill_climb_rand_restart_max(b: &board::Board, max_iterations: u8) -> board::B
 fn main() {
     let n = 8;
     let mut size = 1;
-    let max_iterations = 50;
-    let mut timer = SystemTime::now();
-    let mut runtime = timer.elapsed().unwrap();
+    let max_iterations = 75;
+    let mut timer;
+    let mut runtime;
 
     for _i in 0..5{
         size *= 10;

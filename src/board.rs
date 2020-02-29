@@ -56,6 +56,7 @@ impl Board{
         self.n
     }
 
+    #[allow(dead_code)]
     pub fn to_string(&self) -> String{
         let mut data = String::from("");
         for y in 0..self.n{
