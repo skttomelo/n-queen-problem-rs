@@ -63,9 +63,9 @@ fn hill_climb_rand_restart(b: &board::Board) -> board::Board{
     init
 }
 
-fn hill_climb_rand_restart_max(b: &board::Board, max_iterations: u8) -> board::Board{
+fn hill_climb_rand_restart_max(b: &board::Board, max_iterations: usize) -> board::Board{
     let mut init = b.clone();
-    let mut iteration = 0u8;
+    let mut iteration = 0;
     while init.score() != 0 && iteration != max_iterations{
         let mut solution = init.clone();
         for potential_solution in init.get_neighbors(){
