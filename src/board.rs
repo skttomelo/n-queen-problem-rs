@@ -56,21 +56,22 @@ impl Board{
         self.n
     }
 
-    // pub fn to_string(&self) -> String{
-    //     let mut data = String::from("");
-    //     for y in 0..self.n{
-    //         for x in 0..self.n{
-    //             if self.board[x as usize] == y{
-    //                 data.push_str("[Q]");
-    //             }else{
-    //                 data.push_str("[ ]");
-    //             }
-    //         }
-    //         data.push_str("\n");
-    //     }
+    #[allow(dead_code)]
+    pub fn to_string(&self) -> String{
+        let mut data = String::from("");
+        for y in 0..self.n{
+            for x in 0..self.n{
+                if self.board[x as usize] == y{
+                    data.push_str("[Q]");
+                }else{
+                    data.push_str("[ ]");
+                }
+            }
+            data.push_str("\n");
+        }
 
-    //     data.push_str("\n\n");
+        data.push_str("\n\n");
 
-    //     data
-    // }
+        data
+    }
 }
