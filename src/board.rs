@@ -37,13 +37,15 @@ impl Board{
     pub fn score(&self) -> u8{
         let mut score = 0u8;
         for queen in 0..self.n{
-            for next_queen in queen+1..self.n{
-                if self.board[queen as usize] == self.board[next_queen as usize]{
-                    score += 1;
-                }else if (queen as i8 - next_queen as i8).abs() == (self.board[queen as usize] as i8 - self.board[next_queen as usize] as i8).abs(){
-                    score += 1;
-                }
+            let next_queen = queen+1;
+            if next_queen == self.n{
+                break;
+            }else if self.board[queen as usize] == self.board[next_queen as usize]{
+                score += 1;
+            }else if (self.board[queen as usize] as i8 - self.board[next_queen as usize] as i8 ).abs() != 1{
+                score += 1;
             }
+
         }
         score
     }

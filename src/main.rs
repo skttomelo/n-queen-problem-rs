@@ -87,7 +87,7 @@ fn hill_climb_rand_restart_max(b: &board::Board, max_iterations: usize) -> board
 fn main() {
     let n = 8;
     let mut size = 1;
-    let max_iterations = 75;
+    let max_iterations = 25;
     let mut timer;
     let mut runtime;
 
@@ -96,8 +96,19 @@ fn main() {
         let tables: Vec<board::Board> = generate_boards(n, size);
         println!("Sample Size: {}", size);
 
-        // let mut avg_score = 0.0;
-        // let mut success_rate = 0.0;
+        let mut avg_score = 0.0;
+        let mut success_rate = 0.0;
+
+        for a in &tables{
+            avg_score += a.score() as f64;
+            if a.score() == 0{
+                success_rate += 1.0;
+            }
+        }
+        avg_score = avg_score/size as f64;
+        success_rate = (success_rate/size  as f64)*100.0;
+        println!("avg: {}; success: {}", avg_score, success_rate);
+
         let mut hc_avg_score = 0.0;
         let mut hc_success_rate = 0.0;
         let mut hcrr_avg_score = 0.0;
