@@ -42,7 +42,7 @@ impl Board{
                 break;
             }else if self.board[queen as usize] == self.board[next_queen as usize]{
                 score += 1;
-            }else if (self.board[queen as usize] as i8 - self.board[next_queen as usize] as i8 ).abs() != 1{
+            }else if (self.board[queen as usize] as i8 - self.board[next_queen as usize] as i8 ).abs() == 1{
                 score += 1;
             }
 
