@@ -1,14 +1,17 @@
-mod board;
+mod boards;
 
 use rand;
 use rand::Rng;
 use std::time::SystemTime;
+use boards::chess::Board;
+use boards::Problem;
 
-fn generate_boards(n: u8, size: usize) -> Vec<board::Board>{
-    let mut board_list: Vec<board::Board> = Vec::new();
+
+fn generate_boards(n: u8, size: usize) -> Vec<Board>{
+    let mut board_list: Vec<Board> = Vec::new();
     for _i in 0..size{
         let board = create_board(n);
-        board_list.push(board::Board::new(n, board));
+        board_list.push(Board::new(n, board));
     }
     board_list
 }
@@ -24,7 +27,7 @@ fn create_board(n: u8) -> Vec<u8>{
     b
 }
 
-fn hill_climb(b: &board::Board) -> board::Board{
+fn hill_climb(b: &Board) -> Board{
     let mut init = b.clone();
     let mut peak_plateau = false;
     while peak_plateau == false && init.score() != 0{
@@ -44,7 +47,7 @@ fn hill_climb(b: &board::Board) -> board::Board{
     init
 }
 
-fn hill_climb_rand_restart(b: &board::Board) -> board::Board{
+fn hill_climb_rand_restart(b: &Board) -> Board{
     let mut init = b.clone();
     while init.score() != 0{
         let mut solution = init.clone();
@@ -54,7 +57,7 @@ fn hill_climb_rand_restart(b: &board::Board) -> board::Board{
             }
         }
         if init.is_peak_plateau(&solution){
-            init = board::Board::new(init.get_n(), create_board(init.get_n()));
+            init = Board::new(init.get_n(), create_board(init.get_n()));
         }else{
             init = solution;
         }
@@ -63,7 +66,7 @@ fn hill_climb_rand_restart(b: &board::Board) -> board::Board{
     init
 }
 
-fn hill_climb_rand_restart_max(b: &board::Board, max_iterations: usize) -> board::Board{
+fn hill_climb_rand_restart_max(b: &Board, max_iterations: usize) -> Board{
     let mut init = b.clone();
     let mut iteration = 0;
     while init.score() != 0 && iteration != max_iterations{
@@ -74,7 +77,7 @@ fn hill_climb_rand_restart_max(b: &board::Board, max_iterations: usize) -> board
             }
         }
         if init.is_peak_plateau(&solution){
-            init = board::Board::new(init.get_n(), create_board(init.get_n()));
+            init = Board::new(init.get_n(), create_board(init.get_n()));
         }else{
             init = solution;
         }
@@ -91,9 +94,13 @@ fn main() {
     let mut timer;
     let mut runtime;
 
+    // let p = Puzzle::new(vec![8,1,3,4,9,2,7,6,5]);
+
+    // println!("The Score: {}\n{}", p.score(), p.to_string());
+
     for _i in 0..5{
         size *= 10;
-        let tables: Vec<board::Board> = generate_boards(n, size);
+        let tables: Vec<Board> = generate_boards(n, size);
         println!("Sample Size: {}", size);
 
         let mut avg_score = 0.0;
